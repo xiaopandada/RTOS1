@@ -62,6 +62,28 @@ Task2任务，我最开始的写法：
 
 但是意外的发现，串口也无法打印。关于这个问题是否是个bug尚无法确认，我打算后期找个大佬问问。
 
+## Bug3 修复
+
+	void Task02(void *argument)
+	{
+	  /* USER CODE BEGIN Task02 */
+	  /* Infinite loop */
+	  for(;;)
+	  {
+		 ss++;
+		 if(ss==2)
+		 {
+			 printf("hello!%d\r\n",ss);
+			 ss=0;
+		 }
+		 osDelay(500);
+
+	  }
+	  /* USER CODE END Task02 */
+	}
+
+我最开始程序的自加ss是放在task1中，其实想做个led相反闪烁的，只是后面为了提高代码可查看度，放到task2中了。经过大佬的指点下发现可能是椎空间不够默认为128，我改到512才能够实现串口在if中的发送，对于这个栈的问题后期还需要研究。
+
 ## 留言：
 后面也会慢慢更新RTOS的程序，但是也可能比较缓慢，有点拖延症。
 关于文件中有个Debug以及Release这两个文件夹是由于编译中选择了两次不同导致的，因此目前HEX文件生成目录在Release文件夹中，Debug文件中为早期的编译垃圾。
